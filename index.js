@@ -1,10 +1,12 @@
 // index.js
-console.log('hello world');
 
 const todoUl = document.getElementById("thingsToDoList");
+const addToDoInput = document.getElementById("addToDoInput");
+const addToDoButton =document.getElementById("addToDoButton");
 
-// console.log(document.getElementsByTagName('input')[0]);
+addToDoInput.value = "asdfasdf";
 
+console.log(addToDoInput);
 // create an empty list to hold todos
 const thingsToDoList = [];
 // create an empty list to hold completed items
@@ -16,15 +18,34 @@ function addSomethingToDo(thingToDo) {
 // // push to todoList
 thingsToDoList.push(thingToDo);
 // // clear "addTodoButton" input
+let listItem = document.createElement('li');
+listItem.textContent = thingToDo;
+displayThingToDo(listItem);
 }
+
+function captureTodoInput(){
+  // read what is in the input and store in a variable
+  let input = addToDoInput.value;
+  // console.log(to test)
+  console.log("Input: ", input);
+  // clear input
+  addToDoInput.value = "";
+  // return variable
+  return input;
+}
+
+
+function addToDoButtonOnClick() {
+console.log("hello");
+addSomethingToDo(captureTodoInput());
+}
+addToDoButton.onclick = addToDoButtonOnClick;
 
 // add todos to the DOM
-function displayThingsToDo(thingsToDo) {
-  console.log("thingsToDo: ", thingsToDo);
+function displayThingToDo(newTodo) {
+  todoUl.append(newTodo);
 }
 
 
-let listItem = document.createElement('li');
-listItem.textContent = "Display Text Content";
 
-todoUl.append(listItem);
+
