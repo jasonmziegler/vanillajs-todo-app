@@ -1,6 +1,7 @@
 // index.js
 
 const todoUl = document.getElementById("thingsToDoList");
+const completedTodoOl = document.getElementById("completedToDoList")
 const addToDoInput = document.getElementById("addToDoInput");
 const addToDoButton =document.getElementById("addToDoButton");
 
@@ -11,8 +12,10 @@ console.log(addToDoInput);
 const thingsToDoList = [];
 // create an empty list to hold completed items
 const completedToDoList = [];
-// add an event listener to the "addTodoButton" button
-// create an onClick function
+// How to know what list you are working with? do you need to have an array of objects?
+// let workingList; 
+
+
 function addSomethingToDo(thingToDo) {
 // // push to todoList
 thingsToDoList.push(thingToDo);
@@ -49,10 +52,43 @@ console.log("Edit Button Clicked: ", thingsToDoList[index]);
 
 function deleteToDo(index) {
   console.log("deleted button clicked: ", thingsToDoList[index]);
+  let itemRemoved = thingsToDoList.splice(index, 1);
+  displayThingToDo(thingsToDoList);
+  return itemRemoved;
 }
 
 function completeToDo(index) {
   console.log("Complete button clicked: ", thingsToDoList[index]);
+  let completedItem = deleteToDo(index);
+  // push to completed array
+  completedToDoList.push(completedItem);
+  // display completed list
+  displayCompletedToDoList(completedToDoList);
+}
+
+function markToDoIncomplete(index) {
+ console.log("markToDoIncomplete");
+ addSomethingToDo(completedToDoList.splice(index, 1)[0]);
+ displayCompletedToDoList(completedToDoList);
+}
+
+function displayCompletedToDoList(completedArray) {
+  completedTodoOl.textContent = "";
+  let listItem;
+  let button;
+
+  completedArray.map((value, index) => {
+    listItem= document.createElement('li');
+    listItem.key = index;
+    listItem.textContent = value;
+    
+    button = document.createElement('button');
+    button.textContent = "mark incomplete";
+    button.onclick = () => markToDoIncomplete(index);
+    listItem.appendChild(button);
+    
+    completedTodoOl.append(listItem);
+  });
 }
 
 // add todos to the DOM
