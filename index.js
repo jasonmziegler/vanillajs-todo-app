@@ -61,13 +61,18 @@ function editToDo(event, index) {
   updateButton.onclick = (event) => handleClickUpdate(event, index);
   parentNode.insertBefore(updateButton, parentNode.firstChild);
   parentNode.insertBefore(todoInput, parentNode.firstChild);
-  
 
 }
 // create a handle click update button function 
 function handleClickUpdate(event, index) {
   console.log("Event: ", event);
   console.log("Index: ", index);
+  let textNode = event.target.previousSibling;
+  // update the array (state)
+  console.log(textNode.value);
+  thingsToDoList[index] = textNode.value;
+  // update the UI (should have helper function for each)
+  displayThingToDo(thingsToDoList);
 }
 
 // create handle click delete button function
